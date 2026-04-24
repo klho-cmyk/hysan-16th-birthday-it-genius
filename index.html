@@ -2,7 +2,9 @@
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
-    <title>🎂 Hysan · 平衡最美生日卡</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🎂 Hysan · 16歲生日快樂 | IT天才 · 英文王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,133 +14,406 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(145deg, #FFF2E0, #FFD9B5);
-            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(145deg, #FFF2E0 0%, #FFD9B5 100%);
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        .card {
-            max-width: 1000px;
-            background: white;
+        /* ✅ 氣球：更大、更明顯 */
+        .balloon {
+            position: absolute;
+            bottom: -120px;
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+            z-index: 0;
+            opacity: 0.75;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+        .balloon::after {
+            content: "✧";
+            position: absolute;
+            bottom: -24px;
+            left: 45%;
+            font-size: 18px;
+            color: #C47A2B;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            100% { transform: translateY(-130vh) rotate(8deg); opacity: 0; }
+        }
+
+        /* 主卡片 */
+        .birthday-card {
+            position: relative;
+            z-index: 20;
+            max-width: 1100px;
+            width: 100%;
+            background: #FFFFFFF2;
             border-radius: 64px;
-            padding: 2rem;
-            box-shadow: 0 30px 45px rgba(0,0,0,0.1), 0 0 0 8px #FFE4B5;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.2), 0 0 0 6px #FFE4B5, 0 0 0 12px #FFC78E;
+            padding: 2rem 2rem 2.2rem;
         }
 
-        h1 {
-            font-size: 2.8rem;
-            background: linear-gradient(135deg, #FF6B6B, #FFA559);
+        .name-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF6B6B, #FFA559, #4ECDC4);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             text-align: center;
         }
 
-        .badge {
-            text-align: center;
-            margin: 0.8rem 0;
-        }
-        .badge span {
+        .badge-it {
+            display: inline-block;
             background: #FFE2B5;
-            padding: 0.3rem 1.2rem;
-            border-radius: 40px;
-            font-weight: bold;
+            border-radius: 60px;
+            padding: 0.4rem 1.5rem;
+            font-family: monospace;
+            font-weight: 800;
+            color: #B45F1B;
+            margin: 1rem 0;
+            text-align: center;
         }
 
-        .message {
+        .personal-message {
             background: #FFF4E8;
             border-radius: 2rem;
-            padding: 1.2rem;
-            line-height: 1.5;
+            padding: 1.4rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.55;
+            color: #3E2A1A;
             text-align: center;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            border: 1px solid #FFE0B5;
         }
 
-        .engine {
-            background: #FEF5E9;
-            border-left: 8px solid #FFA559;
+        .highlight-term {
+            background: #FFDEB0;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            font-weight: 800;
+            color: #B45F06;
+        }
+
+        .achievements-double {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+
+        .trophy-card, .english-card {
+            flex: 1;
+            background: white;
             border-radius: 2rem;
-            padding: 1rem;
-            margin: 1.2rem 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 12px 22px rgba(0,0,0,0.08);
+            transition: 0.2s;
+            border: 1px solid #FFD58C;
         }
 
-        .stats {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
         }
+
+        .trophy-card .card-title { color: #E67E22; }
+        .english-card .card-title { color: #27AE60; }
+
         .stat {
             background: #FFE0B5;
             padding: 0.2rem 1rem;
             border-radius: 40px;
-            font-weight: bold;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 0.7rem;
         }
 
-        .highlight {
-            background: #FFDEB0;
-            padding: 0.1rem 0.4rem;
-            border-radius: 20px;
-            font-weight: bold;
+        .memory-block {
+            background: #FEF5E9;
+            border-radius: 2rem;
+            padding: 1rem 1.5rem;
+            margin: 1.2rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 8px solid #FFA559;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        button {
-            background: #FF9F4A;
+        .thread-meta {
+            font-family: monospace;
+            background: #FFE9CF;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 800;
+            color: #C26B00;
+        }
+
+        .code-easter-egg {
+            background: #2D2F36;
+            border-radius: 28px;
+            padding: 1.2rem 1.6rem;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            border: 1px solid #FFC107;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .code-easter-egg pre {
+            color: #E5E9F0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .code-comment { color: #9AA5B5; font-weight: 500; }
+        .code-keyword { color: #FFB347; font-weight: 600; }
+        .code-string { color: #A3E4D7; font-weight: 500; }
+
+        .action-group {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1.8rem 0 0.8rem;
+        }
+
+        .gh-button {
+            background: linear-gradient(135deg, #FF9F4A, #FF6B6B);
             border: none;
-            padding: 0.7rem 1.8rem;
+            padding: 0.8rem 2rem;
             border-radius: 60px;
-            font-weight: bold;
+            font-weight: 800;
             color: white;
             cursor: pointer;
-            margin-top: 1rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
-        .footer {
+        .gh-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+        }
+
+        .footer-copyright {
             text-align: center;
-            font-size: 0.7rem;
-            margin-top: 1.8rem;
+            font-size: 0.75rem;
+            margin-top: 2rem;
             color: #C2823A;
+            font-weight: 500;
+        }
+
+        .confetti-pop {
+            position: absolute;
+            width: 10px;
+            height: 18px;
+            background: #FFB347;
+            opacity: 0.9;
+            pointer-events: none;
+            animation: confettiFall 1s ease-out forwards;
+            z-index: 999;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @media (max-width: 700px) {
+            .birthday-card { padding: 1.2rem; }
+            .name-title { font-size: 2.2rem; }
+            .personal-message { font-size: 0.95rem; }
         }
     </style>
 </head>
 <body>
-<div class="card">
-    <h1>🎂 Hysan，16歲生日快樂 🎂</h1>
-    <div class="badge"><span>✨ IT Genius · 開源冠軍 · 英語達人 ✨</span></div>
 
-    <div class="message">
-        💡 願你日日健康開心，所有努力都有美好回報。<br>
-        ✨ 學英文單字就像 <strong class="highlight">Multi‑threaded Script</strong>：<br>
-        <strong class="highlight">永久記憶、即時檢索、Zero Latency</strong> 🚀<br>
-        🎯 比賽 <strong class="highlight">Perfect Deploy</strong>，全場最閃 Open Source 高手！
+<div id="balloonArea"></div>
+
+<div class="birthday-card">
+    <div class="name-title">🎂 Hysan，16歲生日快樂！🎂</div>
+    <div style="text-align: center;">
+        <span class="badge-it">✨ IT Genius · 開源冠軍 · 英語達人 ✨</span>
     </div>
 
-    <div class="engine">
-        <div>🧠 英文單字引擎</div>
-        <div class="stats">
-            <span class="stat">📖 詞彙吞吐 ∞</span>
-            <span class="stat">⚡ 檢索 0ms</span>
-            <span class="stat">💾 永久記憶</span>
+    <div class="personal-message">
+        💡 願你日日都健康開心，所有努力都有美好的回報。<br>
+        ✨ 祝你學英文生字就像 <strong class="highlight-term">Multi‑threaded Script</strong> ：<br>
+        <span class="highlight-term">永久記憶、即時檢索、Zero Latency！</span> 🚀<br>
+        🎯 比賽 <strong class="highlight-term">Perfect Deploy！</strong> 代碼無 Bug，介面無敵，<br>
+        🏆 全場最閃嘅 <strong class="highlight-term">Open Source 高手</strong> 永遠都是你！
+    </div>
+
+    <div class="achievements-double">
+        <div class="trophy-card">
+            <div style="font-size: 3rem;">🏆⚡🏅</div>
+            <div class="card-title">IT 競賽冠軍</div>
+            <div>香港青少年程式王大賽 總冠軍<br>演算法滿分 · 系統設計獎</div>
+            <div class="stat">🥇 蟬聯兩屆王者</div>
+        </div>
+        <div class="english-card">
+            <div style="font-size: 3rem;">📚🇬🇧🚀</div>
+            <div class="card-title">英語學習成功</div>
+            <div>IELTS 8.0 · 流利技術演講<br>讀寫原版論文無壓力</div>
+            <div class="stat">🎓 CEFR C2 精通級別</div>
         </div>
     </div>
 
-    <div class="engine" style="border-left-color: #4ECDC4;">
-        <div>🏆 冠軍成就</div>
-        <div>🥇 香港程式王大賽 總冠軍 · 演算法滿分</div>
-        <div>🎓 IELTS 8.0 · CEFR C2 精通級別</div>
+    <div class="memory-block">
+        <div class="thread-meta">🧵 multi_thread_vocab 引擎</div>
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+            <span class="stat">📖 詞彙吞吐 ∞</span>
+            <span class="stat">⚡ 檢索 0ms</span>
+            <span class="stat">🧠 永久記憶</span>
+        </div>
+        <div style="font-size:0.85rem; font-weight:500;">✅ 英文成就解鎖：Native‑like Fluency</div>
     </div>
 
-    <div style="text-align: center;">
-        <button onclick="alert('🎊 Perfect Deploy！生日快樂 Hysan 🎊')">🎉 生日派對模式</button>
+    <div class="code-easter-egg">
+        <pre>
+<span class="code-comment">// 💡 生日彩蛋 · 非實際執行程式碼</span>
+<span class="code-comment">// 獻給 Hysan 的 IT 冠軍 + 英文王者祝福</span>
+<span class="code-keyword">async function</span> <span class="code-string">championshipDeploy</span>() {
+    <span class="code-keyword">const</span> code = <span class="code-string">"zero_bug"</span>;
+    <span class="code-keyword">const</span> ui = <span class="code-string">"無敵介面"</span>;
+
+    <span class="code-keyword">if</span> (code.clean && ui.responsive) {
+        console.log(<span class="code-string">"🏆 比賽冠軍 + 最佳工程獎"</span>);
+        <span class="code-keyword">return</span> <span class="code-string">"Hysan 永遠的 Open Source 高手"</span>;
+    }
+}
+<span class="code-comment">// 執行結果：Perfect Deploy ⭐ GitHub 星星破萬</span>
+        </pre>
     </div>
 
-    <div class="footer">
-        ⭐ Hysan｜Open Source Hero｜繼續統治 IDE 與全世界 ⭐
+    <div class="memory-block" style="background:#FFF2E2;">
+        <div class="thread-meta">📡 英文單字即時索引</div>
+        <div style="font-family: monospace; font-weight: 500;">
+            > word = "Persistence" → 永久記憶 ✓<br>
+            > word = "Algorithm" → 零延遲檢索 ✓<br>
+            > 學霸模式：每日 200 字 併發存入
+        </div>
+    </div>
+
+    <div class="action-group">
+        <div class="gh-button" id="celebrateBtn">🎉 生日派對模式 🎂</div>
+        <div class="gh-button" id="copyBtn">📋 複製祝福 + 代碼 💻</div>
+    </div>
+
+    <div class="footer-copyright">
+        ⭐ Hysan | Open Source Hero | 代碼無Bug · 英文流利 · 冠軍光芒 ⭐<br>
+        // 16歲生日快樂，繼續統治 IDE 和全世界 //
     </div>
 </div>
+
+<script>
+    (function() {
+        const balloonArea = document.getElementById('balloonArea');
+        const colors = ['#FFB6C1', '#FFD966', '#A3E4D7', '#F7C873', '#C5E99B', '#FFABAB', '#FFB347'];
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.backgroundColor = color;
+
+            // ✅ 氣球尺寸：比原本大 40%～60%
+            const size = Math.random() * 65 + 55; // 55px ~ 120px
+            balloon.style.width = size + 'px';
+            balloon.style.height = size * 1.25 + 'px';
+
+            balloon.style.left = Math.random() * 100 + '%';
+            balloon.style.animationDuration = Math.random() * 6 + 6 + 's';
+            balloon.style.animationDelay = Math.random() * 5 + 's';
+
+            balloonArea.appendChild(balloon);
+            setTimeout(() => balloon.remove(), 12000);
+        }
+
+        // 一次產生較多氣球，讓畫面豐富
+        for (let i = 0; i < 18; i++) {
+            setTimeout(createBalloon, i * 280);
+        }
+        setInterval(createBalloon, 900);
+
+        function launchConfetti() {
+            const confColors = ['#FFB347','#FF6B6B','#4ECDC4','#FFE066','#F15BB5','#9B59B6'];
+            for (let i = 0; i < 180; i++) {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti-pop');
+                conf.style.left = Math.random() * window.innerWidth + 'px';
+                conf.style.backgroundColor = confColors[Math.floor(Math.random() * confColors.length)];
+                conf.style.width = Math.random() * 12 + 6 + 'px';
+                conf.style.height = Math.random() * 16 + 8 + 'px';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 1000);
+            }
+        }
+
+        document.getElementById('celebrateBtn').onclick = () => {
+            launchConfetti();
+            const toast = document.createElement('div');
+            toast.innerText = '🎊 生日快樂 Hysan！Perfect Deploy 全場歡呼 🎊';
+            toast.style.position = 'fixed';
+            toast.style.bottom = '25%';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.background = '#FFE6B0';
+            toast.style.padding = '0.7rem 1.5rem';
+            toast.style.borderRadius = '60px';
+            toast.style.fontWeight = 'bold';
+            toast.style.border = '2px solid #FF9F4A';
+            toast.style.zIndex = 10001;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+            setTimeout(() => launchConfetti(), 200);
+        };
+
+        document.getElementById('copyBtn').onclick = () => {
+            const msg = `🎂 Hysan，生日快樂啊，IT Genius！🎂
+
+願你日日都健康開心，所有努力都有美好的回報。
+祝你學英文生字就像 Multi-threaded Script：永久記憶、即時檢索、Zero Latency！
+比賽 Perfect Deploy！代碼無 Bug，介面無敵，
+全場最閃嘅 Open Source 高手永遠都是你！
+
+🏆 IT 比賽冠軍榮耀：香港青年程式設計大賽總冠軍
+🇬🇧 英文學成功：IELTS 8.0 · 精通技術文檔
+
+「Hysan 生日快樂，繼續引領開源世界」-- GitHub 夥伴 💻⭐`;
+            navigator.clipboard.writeText(msg);
+            const tip = document.createElement('div');
+            tip.innerText = '✅ 祝福已複製！可以分享到 GitHub / 社群 ✅';
+            tip.style.position = 'fixed';
+            tip.style.bottom = '20%';
+            tip.style.left = '50%';
+            tip.style.transform = 'translateX(-50%)';
+            tip.style.background = '#27AE60';
+            tip.style.color = 'white';
+            tip.style.padding = '0.5rem 1.2rem';
+            tip.style.borderRadius = '40px';
+            tip.style.zIndex = 10002;
+            document.body.appendChild(tip);
+            setTimeout(() => tip.remove(), 2000);
+            launchConfetti();
+        };
+    })();
+</script>
 </body>
 </html>
