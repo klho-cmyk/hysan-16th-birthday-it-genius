@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🎂 Hysan · 16歲IT天才生日快樂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 10% 30%, #0a0f1e, #03070f);
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.8rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .code-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            overflow: hidden;
+        }
+        .rain-line {
+            position: absolute;
+            white-space: nowrap;
+            color: #0fefa7;
+            text-shadow: 0 0 3px #0ff;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-20vh); opacity: 0.7; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .birthday-card {
+            position: relative;
+            z-index: 20;
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(12, 20, 32, 0.75);
+            backdrop-filter: blur(14px);
+            border-radius: 70px 50px 80px 50px;
+            border: 1px solid rgba(0, 255, 255, 0.6);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.6), 0 0 0 2px rgba(0, 230, 250, 0.3);
+            transition: 0.2s;
+            padding: 2rem 2rem 2.2rem;
+        }
+        .birthday-card:hover {
+            transform: scale(1.005);
+            box-shadow: 0 30px 55px rgba(0, 255, 200, 0.25);
+        }
+
+        .hero-greeting {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+        .name-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFE6B0, #FFB347, #7affd4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -1px;
+        }
+        .badge-it {
+            display: inline-block;
+            background: #1e2f46;
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 0.3rem 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #b0ffec;
+            margin: 0.6rem 0;
+            border-left: 3px solid cyan;
+        }
+        .personal-message {
+            background: rgba(0, 20, 35, 0.7);
+            border-radius: 2rem;
+            padding: 1rem 1.8rem;
+            margin: 1.2rem 0;
+            font-size: 1.1rem;
+            line-height: 1.45;
+            color: #e2f0ff;
+            border: 1px dashed #3ccfcf;
+            text-align: center;
+        }
+        .personal-message strong {
+            color: #ffdd88;
+            font-weight: 800;
+        }
+        .highlight-term {
+            background: #0b3b3f;
+            padding: 0.1rem 0.4rem;
+            border-radius: 12px;
+            font-family: monospace;
+            color: #9effcf;
+        }
+
+        .achievements-double {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+            margin: 2rem 0 1.8rem;
+        }
+        .trophy-card, .english-card {
+            flex: 1;
+            min-width: 240px;
+            background: linear-gradient(145deg, #10212e, #09121f);
+            border-radius: 2rem;
+            padding: 1.4rem 1rem;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 200, 0.4);
+            transition: all 0.25s;
+        }
+        .trophy-card:hover, .english-card:hover {
+            transform: translateY(-6px);
+            border-color: #0ff;
+            box-shadow: 0 12px 20px rgba(0,200,255,0.2);
+        }
+        .icon-big {
+            font-size: 3.2rem;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+        }
+        .trophy-card .card-title { color: #FFD966; }
+        .english-card .card-title { color: #6ee7ff; }
+        .achievement-detail {
+            color: #bbd4f0;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+        .code-badge {
+            background: #1e2c3c;
+            border-radius: 40px;
+            padding: 0.2rem 1rem;
+            display: inline-block;
+            font-family: monospace;
+            font-size: 0.75rem;
+            margin-top: 0.7rem;
+            color: #b2ffe0;
+        }
+
+        .memory-block {
+            background: #031e26a0;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border-left: 6px solid #3cffcf;
+        }
+        .thread-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            background: #07262e;
+            padding: 0.5rem 0.8rem;
+            border-radius: 1.5rem;
+            color: #94ffe2;
+        }
+        .vocab-stats {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: #123b44;
+            border-radius: 32px;
+            padding: 0.3rem 1rem;
+            font-weight: bold;
+        }
+
+        .code-perfect {
+            background: #030f1ad9;
+            border-radius: 32px;
+            padding: 1rem 1.4rem;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            border: 1px solid #1effbc;
+        }
+        .code-perfect pre {
+            white-space: pre-wrap;
+            color: #c4f0ff;
+            line-height: 1.5;
+        }
+        .keyword { color: #ffb35c; }
+        .string { color: #b1ff9e; }
+        .comment { color: #7f9ab3; }
+
+        .action-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .gh-button {
+            background: #1f2a40;
+            border: 1px solid #22e0c0;
+            padding: 0.7rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', monospace;
+        }
+        .gh-button:hover {
+            background: #2d4c6e;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,200,230,0.3);
+            border-color: cyan;
+        }
+        .footer-copyright {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 2rem;
+            color: #6e8faa;
+        }
+
+        .confetti-pop {
+            position: absolute;
+            width: 10px;
+            height: 18px;
+            background: #ffbc6e;
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: 999;
+            animation: bombFall 1.2s ease-out forwards;
+        }
+        @keyframes bombFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @media (max-width: 700px) {
+            .birthday-card { padding: 1.2rem; }
+            .name-title { font-size: 2.2rem; }
+            .personal-message { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="code-rain" id="codeRain"></div>
+<div class="birthday-card">
+    <div class="hero-greeting">
+        <div class="name-title">🎂 Hysan，生日快樂啊，IT Genius！🎂</div>
+        <div class="badge-it">// 16歲 · 全棧開源冠軍 · 語言行家 //</div>
+    </div>
+
+    <div class="personal-message">
+        💡 願你日日都健康開心，所有努力都有美好的回報。<br>
+        ✨ 祝你學英文生字就像 <strong class="highlight-term">Multi-threaded Script</strong> ：<br>
+        <span class="highlight-term">永久記憶、即時檢索、Zero Latency！</span> 🚀<br>
+        🎯 比賽 <strong class="highlight-term">Perfect Deploy！</strong> 代碼無 Bug，介面無敵，<br>
+        🏆 全場最閃嘅 <strong class="highlight-term">Open Source 高手</strong> 永遠都是你！
+    </div>
+
+    <div class="achievements-double">
+        <div class="trophy-card">
+            <div class="icon-big">🏆⚡🏅</div>
+            <div class="card-title">IT 競賽冠軍霸業</div>
+            <div class="achievement-detail">「香港青少年程式王大賽」全港總冠軍<br>演算法滿分 · 系統設計至尊獎</div>
+            <div class="code-badge">🥇 蟬聯兩屆旗艦賽冠軍 🥇</div>
+        </div>
+        <div class="english-card">
+            <div class="icon-big">📚🇬🇧🚀</div>
+            <div class="card-title">英語成功 · 超強語感</div>
+            <div class="achievement-detail">IELTS 8.0 · 托福ITP 優異 · 流利技術演講<br>讀寫原版文獻無壓力</div>
+            <div class="code-badge">🎓 CEFR C2 精通級別 🎓</div>
+        </div>
+    </div>
+
+    <div class="memory-block">
+        <div class="thread-meta">
+            🧵 &lt; multi_thread_vocab /&gt; <br>
+            [active_threads: 16] 記憶體: 永久存入
+        </div>
+        <div class="vocab-stats">
+            <span class="stat">📖 詞彙吞吐: ∞</span>
+            <span class="stat">⚡ 檢索延遲: 0ms</span>
+            <span class="stat">🧠 記憶持久: 永久固化</span>
+        </div>
+        <div style="font-size:0.85rem; color:#aaffdd;">✅ 英文學習成就解鎖：Native-like Fluency</div>
+    </div>
+
+    <div class="code-perfect">
+        <pre>
+<span class="comment">// Hysan's Perfect Deploy · 冠軍賽現場風格</span>
+<span class="keyword">async function</span> <span class="string">championshipDeploy</span>() {
+    <span class="keyword">const</span> code = <span class="string">"zero_bug"</span>;
+    <span class="keyword">const</span> ui = <span class="string">"無敵介面"</span>;
+    <span class="keyword">const</span> performance = <span class="string">"O(1) latency"</span>;
+    
+    <span class="keyword">if</span> (code.clean && ui.responsive && performance.fast) {
+        console.log(<span class="string">"🏆 比賽冠軍 + 最佳工程獎 🏆"</span>);
+        <span class="keyword">return</span> <span class="string">"Hysan 永遠的 opensource 高手!"</span>;
+    } <span class="keyword">else</span> {
+        <span class="comment">// 不可能發生，因為他是天才</span>
+        <span class="keyword">await</span> refactorToBrilliant();
+    }
+}
+<span class="comment">// 執行結果: [PERFECT DEPLOY] 全場喝采，GitHub 星星破萬 ⭐✨</span>
+        </pre>
+    </div>
+
+    <div class="memory-block" style="margin-top: 0.2rem; background: #03131ce3;">
+        <div class="thread-meta">
+            📡 英文單字即時索引 :: ThreadPool
+        </div>
+        <div style="font-family: monospace; font-size:0.8rem; color:#bef5ff;">
+            &gt; word = "Persistence" | thread_id=4 → 永久記憶 ✓<br>
+            &gt; word = "Algorithm" | thread_id=7 → 零延遲檢索 ✓<br>
+            &gt; 學霸模式：每日 200 字 併發存入
+        </div>
+    </div>
+
+    <div class="action-group">
+        <div class="gh-button" id="celebrateLaunchBtn">
+            🎉 生日派對模式 🎉
+        </div>
+        <div class="gh-button" id="copyFullGreetingBtn">
+            📋 複製祝福＋代碼 💻
+        </div>
+    </div>
+    <div class="footer-copyright">
+        ⭐ Hysan | Open Source Hero | 代碼無Bug · 英文流利 · 冠軍光芒 ⭐<br>
+        // 16歲生日快樂，你要繼續統治 IDE 和 全世界！//
+    </div>
+</div>
+
+<script>
+    (function() {
+        const rainContainer = document.getElementById('codeRain');
+        const codeStrs = ['<IT/>', 'champion{}', 'english()', '0_latency', 'multi-thread', 'perfect deploy', 'memory_lock', 'async_learn', 'git push', 'no_bug', 'open_source', 'Hysan'];
+        function createRainDrop() {
+            const line = document.createElement('div');
+            line.classList.add('rain-line');
+            const randomCode = codeStrs[Math.floor(Math.random() * codeStrs.length)];
+            line.innerText = randomCode + '  ' + (Math.random() > 0.6 ? '⭐' : '💻');
+            line.style.left = Math.random() * 100 + '%';
+            line.style.fontSize = Math.random() * 12 + 10 + 'px';
+            line.style.animationDuration = Math.random() * 5 + 3 + 's';
+            line.style.animationDelay = Math.random() * 3 + 's';
+            line.style.opacity = Math.random() * 0.5 + 0.2;
+            rainContainer.appendChild(line);
+            setTimeout(() => { if(line && line.remove) line.remove(); }, 8000);
+        }
+        setInterval(createRainDrop, 220);
+        for (let i = 0; i < 30; i++) setTimeout(createRainDrop, i * 120);
+
+        function launchConfetti() {
+            const colors = ['#ffd966', '#ff7b89', '#6effb0', '#3dc2ff', '#c05eff', '#ffe570', '#71ffd4'];
+            for (let i = 0; i < 180; i++) {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti-pop');
+                conf.style.left = Math.random() * window.innerWidth + 'px';
+                conf.style.width = Math.random() * 9 + 5 + 'px';
+                conf.style.height = Math.random() * 16 + 8 + 'px';
+                conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.transform = `rotate(${Math.random() * 360}deg)`;
+                conf.style.animationDuration = Math.random() * 0.9 + 0.7 + 's';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 1300);
+            }
+        }
+
+        document.getElementById('celebrateLaunchBtn').addEventListener('click', function(e) {
+            launchConfetti();
+            const msgDiv = document.createElement('div');
+            msgDiv.innerText = '🎊 生日快樂 Hysan！Perfect Deploy 全場歡呼！ 🎊';
+            msgDiv.style.position = 'fixed';
+            msgDiv.style.bottom = '20%';
+            msgDiv.style.left = '50%';
+            msgDiv.style.transform = 'translateX(-50%)';
+            msgDiv.style.background = '#111c2ae0';
+            msgDiv.style.backdropFilter = 'blur(10px)';
+            msgDiv.style.padding = '0.8rem 1.5rem';
+            msgDiv.style.borderRadius = '60px';
+            msgDiv.style.fontWeight = 'bold';
+            msgDiv.style.color = '#fff3bf';
+            msgDiv.style.border = '2px solid cyan';
+            msgDiv.style.zIndex = '10000';
+            msgDiv.style.fontFamily = 'monospace';
+            msgDiv.style.fontSize = '1rem';
+            msgDiv.style.whiteSpace = 'nowrap';
+            document.body.appendChild(msgDiv);
+            setTimeout(() => msgDiv.remove(), 2500);
+            setTimeout(() => launchConfetti(), 200);
+        });
+
+        document.getElementById('copyFullGreetingBtn').addEventListener('click', function() {
+            const customMessage = `🎂 Hysan，生日快樂啊，IT Genius！🎂
+
+願你日日都健康開心，所有努力都有美好的回報。
+祝你學英文生字就像 Multi-threaded Script：永久記憶、即時檢索、Zero Latency！
+比賽 Perfect Deploy！代碼無 Bug，介面無敵，
+全場最閃嘅 Open Source 高手永遠都是你！
+
+🏆 IT 比賽冠軍榮耀：香港青年程式設計大賽總冠軍、演算法至尊獎。
+🇬🇧 英文學成功：IELTS 8.0 等級，精通技術文檔，流利國際交流。
+
+✨ 特別編碼成就 ✨
+> 多線程詞彙引擎: 永久記憶、零延遲檢索
+> 比賽部署 : Perfect Deploy, 無懈可擊
+
+「Hysan 生日快樂，繼續引領開源世界，冠軍只是序章！」
+-- 來自 GitHub 夥伴的祝福 💻⭐`;
+            navigator.clipboard.writeText(customMessage).then(() => {
+                const toast = document.createElement('div');
+                toast.innerText = '✅ 祝福＋成就訊息已複製！可以貼到 GitHub / 社群 ✅';
+                toast.style.position = 'fixed';
+                toast.style.bottom = '15%';
+                toast.style.left = '50%';
+                toast.style.transform = 'translateX(-50%)';
+                toast.style.backgroundColor = '#18443e';
+                toast.style.color = '#e0fffa';
+                toast.style.padding = '0.6rem 1.2rem';
+                toast.style.borderRadius = '40px';
+                toast.style.fontFamily = 'monospace';
+                toast.style.fontWeight = 'bold';
+                toast.style.border = '1px solid cyan';
+                toast.style.zIndex = '10001';
+                toast.style.backdropFilter = 'blur(6px)';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2300);
+                launchConfetti();
+            });
+        });
+
+        const card = document.querySelector('.birthday-card');
+        card.addEventListener('click', (e) => {
+            if(e.target.closest('.gh-button')) return;
+            for(let s=0;s<25;s++) {
+                let spark = document.createElement('div');
+                spark.style.position = 'absolute';
+                spark.style.width = '4px';
+                spark.style.height = '4px';
+                spark.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                spark.style.borderRadius = '50%';
+                spark.style.left = (e.clientX - 10 + Math.random() * 20) + 'px';
+                spark.style.top = (e.clientY - 10 + Math.random() * 20) + 'px';
+                spark.style.pointerEvents = 'none';
+                spark.style.zIndex = '10000';
+                document.body.appendChild(spark);
+                setTimeout(() => spark.remove(), 500);
+            }
+        });
+    })();
+</script>
+</body>
+</html>
