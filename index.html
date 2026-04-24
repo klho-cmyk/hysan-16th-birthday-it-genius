@@ -218,21 +218,21 @@
             font-weight: 500;
         }
 
-        /* ✅ 彩帶動畫 - 更順暢、更多樣 */
-        .confetti-pop {
+        /* ✅ 彩帶動畫 — 自然飄落、慢慢下降、像雪一樣 */
+        .confetti {
             position: absolute;
             pointer-events: none;
             z-index: 999;
-            animation: confettiFall 1.2s ease-out forwards;
+            animation: confettiFall 2.5s ease-out forwards;
         }
 
         @keyframes confettiFall {
             0% {
-                transform: translateY(-15vh) rotate(0deg);
+                transform: translateY(-20vh) rotate(0deg);
                 opacity: 1;
             }
             100% {
-                transform: translateY(100vh) rotate(720deg);
+                transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -347,68 +347,52 @@
         for (let i = 0; i < 18; i++) setTimeout(createBalloon, i * 280);
         setInterval(createBalloon, 900);
 
-        // ✅ 全新彩帶系統：平均分散、數量多、形狀多樣
+        // ✅ 最原先的彩帶效果：慢慢飄、平均分散、自然落下
         function launchConfetti() {
-            const colors = ['#FFB347', '#FF6B6B', '#4ECDC4', '#FFE066', '#F15BB5', '#9B59B6', '#FF8C42', '#6A4E9B', '#2ECC71', '#E74C3C'];
-            const shapes = ['rectangle', 'circle', 'ribbon'];
+            const colors = ['#FFB347', '#FF6B6B', '#4ECDC4', '#FFE066', '#F15BB5', '#9B59B6', '#FF8C42', '#2ECC71', '#E74C3C', '#FF69B4'];
             
-            // 一次 250 條彩帶，確保畫面豐富
-            const confettiCount = 260;
+            // 彩帶數量 120～150 條，畫面豐富但不會太密集
+            const confettiCount = Math.floor(Math.random() * 60) + 120;
             
             for (let i = 0; i < confettiCount; i++) {
                 const conf = document.createElement('div');
-                conf.classList.add('confetti-pop');
+                conf.classList.add('confetti');
                 
-                // 隨機形狀與大小
-                const shape = shapes[Math.floor(Math.random() * shapes.length)];
-                if (shape === 'rectangle') {
-                    conf.style.width = Math.random() * 12 + 6 + 'px';
-                    conf.style.height = Math.random() * 16 + 8 + 'px';
+                // 隨機形狀：長方形或小圓點
+                if (Math.random() > 0.5) {
+                    conf.style.width = Math.random() * 8 + 4 + 'px';
+                    conf.style.height = Math.random() * 12 + 6 + 'px';
                     conf.style.borderRadius = '2px';
-                } else if (shape === 'circle') {
-                    const size = Math.random() * 10 + 6;
+                } else {
+                    const size = Math.random() * 8 + 4;
                     conf.style.width = size + 'px';
                     conf.style.height = size + 'px';
                     conf.style.borderRadius = '50%';
-                } else {
-                    conf.style.width = Math.random() * 8 + 4 + 'px';
-                    conf.style.height = Math.random() * 22 + 12 + 'px';
-                    conf.style.borderRadius = '30%';
                 }
                 
-                // 顏色
                 conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 
-                // ✅ 關鍵：水平位置平均分散（0% 到 100%）
+                // ✅ 水平位置：從左到右完全平均分散
                 conf.style.left = Math.random() * 100 + '%';
                 
-                // 隨機起始延遲，讓彩帶不是同時噴出，更有層次感
-                conf.style.animationDelay = (Math.random() * 0.3) + 's';
-                conf.style.animationDuration = (Math.random() * 0.8 + 0.9) + 's';
+                // 隨機飄落速度（1.8秒～3.2秒），讓畫面有層次
+                const duration = Math.random() * 1.4 + 1.8;
+                conf.style.animationDuration = duration + 's';
                 
-                // 隨機旋轉起始角度
-                const startRotate = Math.random() * 360;
-                conf.style.transform = `rotate(${startRotate}deg)`;
+                // 隨機延遲，不會全部同時掉下來
+                conf.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                // 隨機起始旋轉角度
+                conf.style.transform = `rotate(${Math.random() * 360}deg)`;
                 
                 document.body.appendChild(conf);
-                setTimeout(() => conf.remove(), 1500);
+                setTimeout(() => conf.remove(), 3500);
             }
-        }
-
-        // 雙層彩帶：主按鈕觸發時多送一波
-        function doubleConfetti() {
-            launchConfetti();
-            setTimeout(() => {
-                launchConfetti();
-            }, 150);
-            setTimeout(() => {
-                launchConfetti();
-            }, 350);
         }
 
         // 生日派對模式按鈕
         document.getElementById('celebrateBtn').onclick = () => {
-            doubleConfetti();
+            launchConfetti();
             
             const toast = document.createElement('div');
             toast.innerText = '🎊 生日快樂 Hysan！Perfect Deploy 全場歡呼 🎊';
@@ -432,7 +416,7 @@
 
         // 複製祝福按鈕
         document.getElementById('copyBtn').onclick = () => {
-            doubleConfetti();
+            launchConfetti();
             
             const msg = `🎂 Hysan，生日快樂啊，IT Genius！🎂
 
