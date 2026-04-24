@@ -268,8 +268,9 @@
         <div class="english-card">
             <div style="font-size: 3rem;">📚🇬🇧🚀</div>
             <div class="card-title">英語學習成功</div>
-            <div>IELTS 8.0 · 流利技術演講<br>讀寫原版論文無壓力</div>
-            <div class="stat">🎓 CEFR C2 精通級別</div>
+            <!-- ✅ 修改處：DSE 英文 L3+ -->
+            <div>DSE 英文 L3+ 達標 · 穩奪大學入場券<br>詞彙強大 · 閱讀卷輕鬆應對</div>
+            <div class="stat">🎓 DSE 英文 L3+ 保證</div>
         </div>
     </div>
 
@@ -280,13 +281,13 @@
             <span class="stat">⚡ 檢索 0ms</span>
             <span class="stat">🧠 永久記憶</span>
         </div>
-        <div style="font-size:0.85rem; font-weight:500;">✅ 英文成就解鎖：Native‑like Fluency</div>
+        <div style="font-size:0.85rem; font-weight:500;">✅ 英文成就解鎖：DSE L3+ 穩陣過關</div>
     </div>
 
     <div class="code-easter-egg">
         <pre>
 <span class="code-comment">// 💡 生日彩蛋 · 非實際執行程式碼</span>
-<span class="code-comment">// 獻給 Hysan 的 IT 冠軍 + 英文王者祝福</span>
+<span class="code-comment">// 獻給 Hysan 的 IT 冠軍 + DSE 英文 L3+ 祝福</span>
 <span class="code-keyword">async function</span> <span class="code-string">championshipDeploy</span>() {
     <span class="code-keyword">const</span> code = <span class="code-string">"zero_bug"</span>;
     <span class="code-keyword">const</span> ui = <span class="code-string">"無敵介面"</span>;
@@ -305,7 +306,7 @@
         <div style="font-family: monospace; font-weight: 500;">
             > word = "Persistence" → 永久記憶 ✓<br>
             > word = "Algorithm" → 零延遲檢索 ✓<br>
-            > 學霸模式：每日 200 字 併發存入
+            > DSE 備戰模式：每日 200 字 併發存入
         </div>
     </div>
 
@@ -315,7 +316,7 @@
     </div>
 
     <div class="footer-copyright">
-        ⭐ Hysan | Open Source Hero | 代碼無Bug · 英文流利 · 冠軍光芒 ⭐<br>
+        ⭐ Hysan | Open Source Hero | 代碼無Bug · 英文 L3+ · 冠軍光芒 ⭐<br>
         // 16歲生日快樂，繼續統治 IDE 和全世界 //
     </div>
 </div>
@@ -344,7 +345,6 @@
         setInterval(createBalloon, 900);
 
         // ========== 雪花系統：從「Hysan，16歲生日快樂」標題飄落 ==========
-        // 雪花樣式
         const snowSymbols = ['❄️', '❄️', '❄️', '✨', '⭐', '·', '•', '✧', '✦', '❅', '❆'];
         
         function createSnowflake() {
@@ -354,12 +354,9 @@
             const rect = snowSource.getBoundingClientRect();
             if (rect.width === 0) return;
             
-            // 水平範圍：標題區域左右各延伸 40px，更自然
             const leftBound = rect.left - 40;
             const rightBound = rect.right + 40;
             const randomLeft = leftBound + Math.random() * (rightBound - leftBound);
-            
-            // 出生 Y 座標：標題區域的頂部 + 隨機偏移（避免整排同時出現）
             const startY = rect.top + Math.random() * 25;
             
             const snowflake = document.createElement('div');
@@ -369,30 +366,18 @@
             snowflake.style.left = randomLeft + 'px';
             snowflake.style.top = startY + 'px';
             
-            // 隨機雪花符號
             snowflake.innerHTML = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
             
-            // 隨機大小（12px ~ 28px）
             const size = Math.random() * 16 + 12;
             snowflake.style.fontSize = size + 'px';
-            
-            // 隨機透明度（0.6 ~ 1）
             snowflake.style.opacity = Math.random() * 0.4 + 0.6;
             
-            // 隨機飄落速度：2.5秒 ~ 7秒（慢一點更有雪花感）
             const duration = Math.random() * 4.5 + 2.5;
-            snowflake.style.transition = `transform ${duration}s linear`;
-            
-            // 隨機水平飄移（左右搖擺，-30px ~ 30px）
             const driftX = (Math.random() - 0.5) * 70;
-            
-            // 隨機旋轉角度
             const rotateEnd = Math.random() * 360;
             
-            // 使用 CSS 動畫
             snowflake.style.animation = `snowDrift ${duration}s ease-out forwards`;
             
-            // 添加自定義動畫
             const styleId = 'snowAnimationStyle';
             if (!document.getElementById(styleId)) {
                 const styleSheet = document.createElement('style');
@@ -414,18 +399,15 @@
             
             document.body.appendChild(snowflake);
             
-            // 動畫結束後移除
             setTimeout(() => {
                 if (snowflake && snowflake.remove) snowflake.remove();
             }, duration * 1000);
         }
         
-        // 啟動雪花：每 200ms ~ 500ms 完全隨機產生一片
         let snowTimeout;
         function startSnowfall() {
             function scheduleNext() {
                 createSnowflake();
-                // 隨機間隔 180ms ~ 550ms，沒有規律感
                 const nextDelay = Math.random() * 370 + 180;
                 snowTimeout = setTimeout(scheduleNext, nextDelay);
             }
@@ -433,11 +415,8 @@
         }
         
         startSnowfall();
-        
-        // 當視窗滾動或 resize 時，雪花仍會從正確位置產生（即時取得位置）
-        // 不需要特別處理，因為每次 createSnowflake 都會重新取得 rect
 
-        // ========== 彩帶功能（按鈕用）==========
+        // ========== 彩帶功能 ==========
         function launchConfetti() {
             const colors = ['#FFB347', '#FF6B6B', '#4ECDC4', '#FFE066', '#F15BB5', '#9B59B6', '#FF8C42', '#2ECC71', '#E74C3C', '#FF69B4'];
             const confettiCount = Math.floor(Math.random() * 70) + 100;
@@ -469,7 +448,6 @@
             }
         }
 
-        // 生日派對模式按鈕
         document.getElementById('celebrateBtn').onclick = () => {
             launchConfetti();
             
@@ -493,7 +471,6 @@
             setTimeout(() => toast.remove(), 2800);
         };
 
-        // 複製祝福按鈕
         document.getElementById('copyBtn').onclick = () => {
             launchConfetti();
             
@@ -504,8 +481,8 @@
 比賽 Perfect Deploy！代碼無 Bug，介面無敵，
 全場最閃嘅 Open Source 高手永遠都是你！
 
-🏆 IT 比賽冠軍榮耀：香港青年程式設計大賽總冠軍
-🇬🇧 英文學成功：IELTS 8.0 · 精通技術文檔
+🏆 IT 比賽冠軍榮耀：香港青少年程式王大賽總冠軍
+🇬🇧 英文學成功：DSE 英文 L3+ 達標 · 穩奪大學入場券
 
 「Hysan 生日快樂，繼續引領開源世界」-- GitHub 夥伴 💻⭐`;
             
