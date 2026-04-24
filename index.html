@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* ✅ 氣球：更大、更明顯 */
+        /* 氣球 */
         .balloon {
             position: absolute;
             bottom: -120px;
@@ -48,7 +48,6 @@
             100% { transform: translateY(-130vh) rotate(8deg); opacity: 0; }
         }
 
-        /* 主卡片 */
         .birthday-card {
             position: relative;
             z-index: 20;
@@ -219,20 +218,23 @@
             font-weight: 500;
         }
 
+        /* ✅ 彩帶動畫 - 更順暢、更多樣 */
         .confetti-pop {
             position: absolute;
-            width: 10px;
-            height: 18px;
-            background: #FFB347;
-            opacity: 0.9;
             pointer-events: none;
-            animation: confettiFall 1s ease-out forwards;
             z-index: 999;
+            animation: confettiFall 1.2s ease-out forwards;
         }
 
         @keyframes confettiFall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+            0% {
+                transform: translateY(-15vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
 
         @media (max-width: 700px) {
@@ -324,68 +326,114 @@
 
 <script>
     (function() {
+        // 氣球
         const balloonArea = document.getElementById('balloonArea');
-        const colors = ['#FFB6C1', '#FFD966', '#A3E4D7', '#F7C873', '#C5E99B', '#FFABAB', '#FFB347'];
+        const balloonColors = ['#FFB6C1', '#FFD966', '#A3E4D7', '#F7C873', '#C5E99B', '#FFABAB', '#FFB347', '#FF8C94'];
 
         function createBalloon() {
             const balloon = document.createElement('div');
             balloon.classList.add('balloon');
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            balloon.style.backgroundColor = color;
-
-            // ✅ 氣球尺寸：比原本大 40%～60%
-            const size = Math.random() * 65 + 55; // 55px ~ 120px
+            balloon.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            const size = Math.random() * 65 + 55;
             balloon.style.width = size + 'px';
             balloon.style.height = size * 1.25 + 'px';
-
             balloon.style.left = Math.random() * 100 + '%';
             balloon.style.animationDuration = Math.random() * 6 + 6 + 's';
             balloon.style.animationDelay = Math.random() * 5 + 's';
-
             balloonArea.appendChild(balloon);
             setTimeout(() => balloon.remove(), 12000);
         }
 
-        // 一次產生較多氣球，讓畫面豐富
-        for (let i = 0; i < 18; i++) {
-            setTimeout(createBalloon, i * 280);
-        }
+        for (let i = 0; i < 18; i++) setTimeout(createBalloon, i * 280);
         setInterval(createBalloon, 900);
 
+        // ✅ 全新彩帶系統：平均分散、數量多、形狀多樣
         function launchConfetti() {
-            const confColors = ['#FFB347','#FF6B6B','#4ECDC4','#FFE066','#F15BB5','#9B59B6'];
-            for (let i = 0; i < 180; i++) {
+            const colors = ['#FFB347', '#FF6B6B', '#4ECDC4', '#FFE066', '#F15BB5', '#9B59B6', '#FF8C42', '#6A4E9B', '#2ECC71', '#E74C3C'];
+            const shapes = ['rectangle', 'circle', 'ribbon'];
+            
+            // 一次 250 條彩帶，確保畫面豐富
+            const confettiCount = 260;
+            
+            for (let i = 0; i < confettiCount; i++) {
                 const conf = document.createElement('div');
                 conf.classList.add('confetti-pop');
-                conf.style.left = Math.random() * window.innerWidth + 'px';
-                conf.style.backgroundColor = confColors[Math.floor(Math.random() * confColors.length)];
-                conf.style.width = Math.random() * 12 + 6 + 'px';
-                conf.style.height = Math.random() * 16 + 8 + 'px';
+                
+                // 隨機形狀與大小
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                if (shape === 'rectangle') {
+                    conf.style.width = Math.random() * 12 + 6 + 'px';
+                    conf.style.height = Math.random() * 16 + 8 + 'px';
+                    conf.style.borderRadius = '2px';
+                } else if (shape === 'circle') {
+                    const size = Math.random() * 10 + 6;
+                    conf.style.width = size + 'px';
+                    conf.style.height = size + 'px';
+                    conf.style.borderRadius = '50%';
+                } else {
+                    conf.style.width = Math.random() * 8 + 4 + 'px';
+                    conf.style.height = Math.random() * 22 + 12 + 'px';
+                    conf.style.borderRadius = '30%';
+                }
+                
+                // 顏色
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // ✅ 關鍵：水平位置平均分散（0% 到 100%）
+                conf.style.left = Math.random() * 100 + '%';
+                
+                // 隨機起始延遲，讓彩帶不是同時噴出，更有層次感
+                conf.style.animationDelay = (Math.random() * 0.3) + 's';
+                conf.style.animationDuration = (Math.random() * 0.8 + 0.9) + 's';
+                
+                // 隨機旋轉起始角度
+                const startRotate = Math.random() * 360;
+                conf.style.transform = `rotate(${startRotate}deg)`;
+                
                 document.body.appendChild(conf);
-                setTimeout(() => conf.remove(), 1000);
+                setTimeout(() => conf.remove(), 1500);
             }
         }
 
-        document.getElementById('celebrateBtn').onclick = () => {
+        // 雙層彩帶：主按鈕觸發時多送一波
+        function doubleConfetti() {
             launchConfetti();
+            setTimeout(() => {
+                launchConfetti();
+            }, 150);
+            setTimeout(() => {
+                launchConfetti();
+            }, 350);
+        }
+
+        // 生日派對模式按鈕
+        document.getElementById('celebrateBtn').onclick = () => {
+            doubleConfetti();
+            
             const toast = document.createElement('div');
             toast.innerText = '🎊 生日快樂 Hysan！Perfect Deploy 全場歡呼 🎊';
             toast.style.position = 'fixed';
-            toast.style.bottom = '25%';
+            toast.style.bottom = '30%';
             toast.style.left = '50%';
             toast.style.transform = 'translateX(-50%)';
             toast.style.background = '#FFE6B0';
-            toast.style.padding = '0.7rem 1.5rem';
+            toast.style.padding = '0.8rem 1.8rem';
             toast.style.borderRadius = '60px';
             toast.style.fontWeight = 'bold';
+            toast.style.fontSize = '1.1rem';
+            toast.style.color = '#C26B00';
             toast.style.border = '2px solid #FF9F4A';
+            toast.style.boxShadow = '0 6px 16px rgba(0,0,0,0.15)';
             toast.style.zIndex = 10001;
+            toast.style.whiteSpace = 'nowrap';
             document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2500);
-            setTimeout(() => launchConfetti(), 200);
+            setTimeout(() => toast.remove(), 2800);
         };
 
+        // 複製祝福按鈕
         document.getElementById('copyBtn').onclick = () => {
+            doubleConfetti();
+            
             const msg = `🎂 Hysan，生日快樂啊，IT Genius！🎂
 
 願你日日都健康開心，所有努力都有美好的回報。
@@ -397,21 +445,25 @@
 🇬🇧 英文學成功：IELTS 8.0 · 精通技術文檔
 
 「Hysan 生日快樂，繼續引領開源世界」-- GitHub 夥伴 💻⭐`;
+            
             navigator.clipboard.writeText(msg);
+            
             const tip = document.createElement('div');
             tip.innerText = '✅ 祝福已複製！可以分享到 GitHub / 社群 ✅';
             tip.style.position = 'fixed';
-            tip.style.bottom = '20%';
+            tip.style.bottom = '25%';
             tip.style.left = '50%';
             tip.style.transform = 'translateX(-50%)';
             tip.style.background = '#27AE60';
             tip.style.color = 'white';
-            tip.style.padding = '0.5rem 1.2rem';
+            tip.style.padding = '0.6rem 1.4rem';
             tip.style.borderRadius = '40px';
+            tip.style.fontWeight = 'bold';
+            tip.style.fontSize = '0.95rem';
+            tip.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
             tip.style.zIndex = 10002;
             document.body.appendChild(tip);
-            setTimeout(() => tip.remove(), 2000);
-            launchConfetti();
+            setTimeout(() => tip.remove(), 2200);
         };
     })();
 </script>
