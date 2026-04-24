@@ -59,7 +59,7 @@
             padding: 2rem 2rem 2.2rem;
         }
 
-        /* ✅ 標題區域 — 雪花的出生點 */
+        /* 標題區域 — 雪花的出生點 */
         .snow-source {
             position: relative;
             text-align: center;
@@ -224,25 +224,10 @@
             font-weight: 500;
         }
 
-        /* ✅ 雪花動畫 — 完全隨機、錯落飄落、沒有排隊感 */
-        .snowflake {
-            position: fixed;
-            pointer-events: none;
-            z-index: 999;
-            color: white;
-            text-shadow: 0 0 3px rgba(0,0,0,0.2);
-            animation: snowFall linear forwards;
-        }
-
-        @keyframes snowFall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
+        /* 彩帶動畫 */
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
         @media (max-width: 700px) {
@@ -257,7 +242,7 @@
 <div id="balloonArea"></div>
 
 <div class="birthday-card">
-    <!-- ✅ 標題區域 — 雪花從這裡飄下來 -->
+    <!-- 標題區域 — 雪花從這裡飄下來 -->
     <div class="snow-source" id="snowSource">
         <div class="name-title">🎂 Hysan，16歲生日快樂！🎂</div>
         <div style="text-align: center;">
@@ -337,7 +322,7 @@
 
 <script>
     (function() {
-        // 氣球
+        // ========== 氣球 ==========
         const balloonArea = document.getElementById('balloonArea');
         const balloonColors = ['#FFB6C1', '#FFD966', '#A3E4D7', '#F7C873', '#C5E99B', '#FFABAB', '#FFB347', '#FF8C94'];
 
@@ -358,82 +343,110 @@
         for (let i = 0; i < 18; i++) setTimeout(createBalloon, i * 280);
         setInterval(createBalloon, 900);
 
-        // ✅ 雪花功能：從「Hysan，16歲生日快樂」標題區域飄落
+        // ========== 雪花系統：從「Hysan，16歲生日快樂」標題飄落 ==========
+        // 雪花樣式
+        const snowSymbols = ['❄️', '❄️', '❄️', '✨', '⭐', '·', '•', '✧', '✦', '❅', '❆'];
+        
         function createSnowflake() {
             const snowSource = document.getElementById('snowSource');
             if (!snowSource) return;
             
-            // 取得標題區域在畫面中的位置
             const rect = snowSource.getBoundingClientRect();
-            // 雪花出生範圍：標題區域的寬度範圍內（左右各延伸一點，更自然）
-            const minLeft = rect.left - 30;
-            const maxLeft = rect.right + 30;
-            // 出生 Y 座標：標題區域的頂部附近
-            const startY = rect.top + 10;
+            if (rect.width === 0) return;
+            
+            // 水平範圍：標題區域左右各延伸 40px，更自然
+            const leftBound = rect.left - 40;
+            const rightBound = rect.right + 40;
+            const randomLeft = leftBound + Math.random() * (rightBound - leftBound);
+            
+            // 出生 Y 座標：標題區域的頂部 + 隨機偏移（避免整排同時出現）
+            const startY = rect.top + Math.random() * 25;
             
             const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            
-            // 雪花符號（各種不同的雪花樣式）
-            const snowSymbols = ['❄️', '❄️', '❄️', '✨', '⭐', '💫', '·', '•', '✧', '✦'];
-            snowflake.innerHTML = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
-            
-            // 隨機大小
-            const size = Math.random() * 18 + 10;
-            snowflake.style.fontSize = size + 'px';
-            
-            // ✅ 水平位置：在標題區域範圍內完全隨機，絕不排隊
-            snowflake.style.left = (minLeft + Math.random() * (maxLeft - minLeft)) + 'px';
+            snowflake.style.position = 'fixed';
+            snowflake.style.pointerEvents = 'none';
+            snowflake.style.zIndex = '999';
+            snowflake.style.left = randomLeft + 'px';
             snowflake.style.top = startY + 'px';
             
-            // ✅ 飄落速度：非常隨機（2.5秒～6秒），製造錯落感
-            const duration = Math.random() * 3.5 + 2.5;
-            snowflake.style.animationDuration = duration + 's';
+            // 隨機雪花符號
+            snowflake.innerHTML = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
             
-            // ✅ 飄落延遲：0～1.5秒隨機，避免同時落下
-            snowflake.style.animationDelay = Math.random() * 1.5 + 's';
+            // 隨機大小（12px ~ 28px）
+            const size = Math.random() * 16 + 12;
+            snowflake.style.fontSize = size + 'px';
             
-            // 隨機水平飄移（左右搖擺，更像真實雪花）
-            const drift = (Math.random() - 0.5) * 80;
-            snowflake.style.setProperty('--drift', drift + 'px');
+            // 隨機透明度（0.6 ~ 1）
+            snowflake.style.opacity = Math.random() * 0.4 + 0.6;
+            
+            // 隨機飄落速度：2.5秒 ~ 7秒（慢一點更有雪花感）
+            const duration = Math.random() * 4.5 + 2.5;
+            snowflake.style.transition = `transform ${duration}s linear`;
+            
+            // 隨機水平飄移（左右搖擺，-30px ~ 30px）
+            const driftX = (Math.random() - 0.5) * 70;
+            
+            // 隨機旋轉角度
+            const rotateEnd = Math.random() * 360;
+            
+            // 使用 CSS 動畫
+            snowflake.style.animation = `snowDrift ${duration}s ease-out forwards`;
+            
+            // 添加自定義動畫
+            const styleId = 'snowAnimationStyle';
+            if (!document.getElementById(styleId)) {
+                const styleSheet = document.createElement('style');
+                styleSheet.id = styleId;
+                styleSheet.textContent = `
+                    @keyframes snowDrift {
+                        0% {
+                            transform: translate(0, 0) rotate(0deg);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translate(${driftX}px, 100vh) rotate(${rotateEnd}deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(styleSheet);
+            }
             
             document.body.appendChild(snowflake);
             
             // 動畫結束後移除
             setTimeout(() => {
                 if (snowflake && snowflake.remove) snowflake.remove();
-            }, (duration + 1.5) * 1000);
+            }, duration * 1000);
         }
         
-        // ✅ 持續產生雪花：每 200～500 毫秒產生一片，完全隨機間隔
-        let snowInterval;
-        function startSnow() {
-            if (snowInterval) clearInterval(snowInterval);
-            // 隨機間隔產生雪花，避免規律感
-            function scheduleSnow() {
+        // 啟動雪花：每 200ms ~ 500ms 完全隨機產生一片
+        let snowTimeout;
+        function startSnowfall() {
+            function scheduleNext() {
                 createSnowflake();
-                const nextDelay = Math.random() * 300 + 150; // 150ms ~ 450ms 隨機
-                snowInterval = setTimeout(scheduleSnow, nextDelay);
+                // 隨機間隔 180ms ~ 550ms，沒有規律感
+                const nextDelay = Math.random() * 370 + 180;
+                snowTimeout = setTimeout(scheduleNext, nextDelay);
             }
-            snowInterval = setTimeout(scheduleSnow, 100);
+            scheduleNext();
         }
         
-        // 頁面載入後自動開始飄雪花
-        startSnow();
+        startSnowfall();
         
-        // 當視窗滾動或縮放時，雪花仍會從正確位置產生（動態調整已是即時取得位置）
+        // 當視窗滾動或 resize 時，雪花仍會從正確位置產生（即時取得位置）
+        // 不需要特別處理，因為每次 createSnowflake 都會重新取得 rect
 
-        // 彩帶功能（按鈕用）
+        // ========== 彩帶功能（按鈕用）==========
         function launchConfetti() {
             const colors = ['#FFB347', '#FF6B6B', '#4ECDC4', '#FFE066', '#F15BB5', '#9B59B6', '#FF8C42', '#2ECC71', '#E74C3C', '#FF69B4'];
-            const confettiCount = Math.floor(Math.random() * 60) + 100;
+            const confettiCount = Math.floor(Math.random() * 70) + 100;
             
             for (let i = 0; i < confettiCount; i++) {
                 const conf = document.createElement('div');
                 conf.style.position = 'fixed';
                 conf.style.pointerEvents = 'none';
                 conf.style.zIndex = '999';
-                conf.style.position = 'absolute';
                 
                 if (Math.random() > 0.5) {
                     conf.style.width = Math.random() * 8 + 4 + 'px';
@@ -449,24 +462,11 @@
                 conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 conf.style.left = Math.random() * 100 + '%';
                 conf.style.top = '-20px';
-                conf.style.animation = `confettiFall ${Math.random() * 1.5 + 1.8}s ease-out forwards`;
+                conf.style.animation = `confettiFall ${Math.random() * 1.5 + 1.5}s ease-out forwards`;
                 
                 document.body.appendChild(conf);
                 setTimeout(() => conf.remove(), 3500);
             }
-        }
-        
-        // 添加彩帶動畫樣式（如果還沒有的話）
-        if (!document.querySelector('#confettiKeyframes')) {
-            const style = document.createElement('style');
-            style.id = 'confettiKeyframes';
-            style.textContent = `
-                @keyframes confettiFall {
-                    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-                    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
         }
 
         // 生日派對模式按鈕
